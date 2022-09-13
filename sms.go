@@ -16,7 +16,9 @@ import (
 //the api endpoint for sending sms is same for all types of sms
 //delay must be provided in seconds
 func SendScheduledMessage(sender string, numbers []string, message string, delay int32) {
-	err := godotenv.Load(".env")
+	if err := godotenv.Load(".env"); err != nil {
+		log.Fatal("ENV:", "failed to load environment variables")
+	}
 
 	var parsedDelimitedNumbers string = numbers[0]
 	for i := 1; i < len(numbers); i++ {
@@ -36,7 +38,7 @@ func SendScheduledMessage(sender string, numbers []string, message string, delay
 
 	resp, err := http.PostForm("https://api.textlocal.in/send", params)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("HTTPPOST:", err)
 		return
 	}
 
