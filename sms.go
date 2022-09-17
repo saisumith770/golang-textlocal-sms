@@ -38,7 +38,7 @@ func SendScheduledMessage(sender string, numbers []string, message string, delay
 
 	resp, err := http.PostForm("https://api.textlocal.in/send", params)
 	if err != nil {
-		log.Fatal("HTTPPOST:", err)
+		log.Print("HTTPPOST:", err)
 		return
 	}
 
